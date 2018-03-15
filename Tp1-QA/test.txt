@@ -1,0 +1,13 @@
+Clients :
+Roger
+Céline
+Steeve
+Plats :
+Poutine 10
+Frites 2
+Repas_poulet 15
+Commandes :
+Roger Poutine 1
+Céline Frites 2
+Céline Repas_poulet 15
+Fin
