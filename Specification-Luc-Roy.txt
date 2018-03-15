@@ -12,7 +12,9 @@ Appelle d'une methode enregistrer avec la variable enregistrement comme attribut
 
 Methode enregistrer(String enregistrement)
 
-La méthode enregistrer utilise un PrintWriter avec la variable enregistrement pour nom (Facture-du-date-heure.txt)
+La méthode enregistrer creer une nouvelle variable Sring qui a pour nom titre avec pour valeur Facture-du-date-heure.txt
+
+utilise un PrintWriter avec la variable enregistrement pour nom la variable titre.
 
 
 
