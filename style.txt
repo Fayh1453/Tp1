@@ -4,7 +4,7 @@ Commentaire facultatif.
 
 Développement:
 
-Mentionner au coopquépier le plus tôt possible si une méthode est brisé.
+Mentionner au coéquipier le plus tôt possible si une méthode est brisé.
 Utiliser seulement la branche DEV pour le développement (ne pas utilisé Master).
 Mentionner au coéquipier avant de modifier une méthode de ce dernier.
 Utilisation d'objets.
