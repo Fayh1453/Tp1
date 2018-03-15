@@ -1,0 +1,29 @@
+Creation du fichier facture
+
+
+
+Création d'un nouvelle variable String (enregistrement) dans la methode affichage (classe Facture) initialiser a "";
+
+
+Toujours dans la méthode Affichage, rajout des informations afficher dans la variable enregistrement.
+
+Appelle d'une methode enregistrer avec la variable enregistrement comme attribut
+
+
+Methode enregistrer(String enregistrement)
+
+La méthode enregistrer utilise un PrintWriter avec la variable enregistrement pour nom (Facture-du-date-heure.txt)
+
+
+
+
+
+
+Ajouts des errreurs dans l'affichage
+Changement des messages erreur pour etre conforme au erreurs et rajou dans la variable String
+
+
+Erreur: La commande contient un client non existant.
+
+Erreur: La commande contient un plat non existant.
+
