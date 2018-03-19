@@ -19,8 +19,8 @@ public class Facture {
 	private int j=0;
 	private int k=0;
 	private int l=0;
-	private static double TPS = 1.05;
-	private static double TVQ = 1.1;
+	public static double TPS = 1.05;
+	public static double TVQ = 1.1;
 	private int compteurC=0;
 	private int compteurP=0;
 	private int compteurCommandes=0;
@@ -219,11 +219,11 @@ public class Facture {
 		return verif;
 	}
 	
-	private double calculTPS(double total){
+	public static double calculTPS(double total){
 		return total*TPS;
 	}
 	
-	private double calculTVQ(double total){
+	public static double calculTVQ(double total){
 		return total*TVQ;
 	}
 

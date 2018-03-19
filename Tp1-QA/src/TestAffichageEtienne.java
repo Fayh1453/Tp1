@@ -6,14 +6,14 @@ public class TestAffichageEtienne {
 
 	@Test
 	public void testTVQ() {
-		double resultat = Facture.calculTPQ(100.00);
-		assertEquals(110, resultat);
+		double resultat = Facture.calculTVQ( 100 );
+		assertEquals(110, resultat, 2);
 	}
 	
 	@Test
 	public void testTPS() {
-		double resultat = Facture.CalculTPS)(100.00);
-		assertEquals(105,resultat);
+		double resultat = Facture.calculTPS(100.00);
+		assertEquals(105,resultat, 2);
 	}
 	
 }
