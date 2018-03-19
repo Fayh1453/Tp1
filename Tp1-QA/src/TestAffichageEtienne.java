@@ -16,4 +16,12 @@ public class TestAffichageEtienne {
 		assertEquals(105,resultat, 2);
 	}
 	
+	@Test
+	public void testPlat(){
+		Plat testPlat = new Plat("TEST");
+		assertEquals("TEST",testPlat.getNom());
+		
+		
+	}
+	
 }
