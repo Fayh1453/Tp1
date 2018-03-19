@@ -19,8 +19,8 @@ public class Facture {
 	private int j=0;
 	private int k=0;
 	private int l=0;
-	private static double TPS = 1.05;
-	private static double TVQ = 1.1;
+	private static  final double TPS = 1.05;
+	private static final double TVQ = 1.1;
 	private int compteurC=0;
 	private int compteurP=0;
 	private int compteurCommandes=0;
@@ -28,6 +28,7 @@ public class Facture {
 	private String[] textePlat;
 	private String[] texteCommandes;
 	private DecimalFormat df = new DecimalFormat( "#0.00" );
+	private String erreur;
 	
 	public Facture(String nomFichier){
 
@@ -70,38 +71,51 @@ public class Facture {
 		int i=0;
 		if(texte[i].equalsIgnoreCase("Clients:")){
 			++i;
-		while(!texte[i].equalsIgnoreCase("Plats:")){				
+		while(!texte[i].equalsIgnoreCase("Plats:")){
+			if(Vérifications.verifierClient(texte[i])){
 				clientTemp =  new Clients(texte[i]);
 				tabClients[j]= clientTemp;
+			}else{
+				erreur+="Le nom du client " + texte[i] + " n'est pas valide. \n";
+			}
 				++i;
 				++j;
 		}		
 			++i;
 		while(!texte[i].equalsIgnoreCase("Commandes:")){
-				
 				textePlat = texte[i].split("\\s+");
+				if(Vérifications.verifierPlat(textePlat[0]) && Vérifications.verifierPrix(textePlat[1])){
 				Plat platTemp = new Plat(textePlat[0],Double.parseDouble(textePlat[1]));
 				tabPlats[k]= platTemp;
+				}else if(!Vérifications.verifierPlat(textePlat[0])){
+				erreur+="Le nom du plat " + textePlat[0] + " n'est pas valide. \n";
+				}else{
+				erreur+="Le prix du plat " + textePlat[1] + " n'est pas valide. \n";
+				}
 				++i;
 				++k;
 			}
 			++i;
-		while(!texte[i].equalsIgnoreCase("Fin")){
-			try{
+		while(!texte[i].equalsIgnoreCase("Fin")){			
 			texteCommandes = texte[i].split("\\s+");
+			if(Vérifications.verifierClient(texteCommandes[0])&&Vérifications.verifierPlat(texteCommandes[1])&&Vérifications.verifierQuantite(texteCommandes[2])){
 			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Double.parseDouble(texteCommandes[2]));
 			tabCommandes[l]= commandesTemp;
+			}else if(!Vérifications.verifierClient(texteCommandes[0])){
+			erreur+="Le nom du client " + texteCommandes[0] + " n'est pas valide. \n";
+			}else if(!Vérifications.verifierPlat(texteCommandes[1])){
+			erreur+="Le nom du plat " + texteCommandes[1] + " n'est pas valide. \n";	
+			}else{
+			erreur+="La quantité " + texteCommandes[2] + " n'est pas valide. \n";	
+			}
 			++i;
 			++l;
-			}catch (Exception e){
-				System.out.println("Le fichier ne respecte pas le format demandé!");
-				System.exit(1);
 			}
 		}
 			
 	}
 
-	}
+	
 
 
 
@@ -118,11 +132,11 @@ public class Facture {
 			String temp = tabCommandes[i].getNomClient();
 			String temp2 = tabCommandes[i].getNomRepas();
 			
-			if(!verifierClient(temp)){
+			if(!Vérifications.verifierClientExistant(tabClients, temp)){
 				System.out.println("Le fichier ne respecte pas le format demandé!");
 				System.exit(1);
 			}
-			if(!verifierPlats(temp2)){
+			if(!Vérifications.verifierPlatsExistant(tabPlats, temp2)){
 				System.out.println("Le fichier ne respecte pas le format demandé!");
 				System.exit(1);
 			}
@@ -168,6 +182,7 @@ public class Facture {
 			}
 
 				if(total>0){
+				System.out.println(erreur);
 				System.out.println( tempClient + " " + df.format( total ) + "$" );
 				}
 			
@@ -197,27 +212,6 @@ public class Facture {
         return lines.toArray(new String[lines.size()]);
 	}
 	
-	private boolean verifierClient(String temp){
-		boolean verif=false;
-		for (int w=0; w<tabClients.length&&!verif; ++w){
-			if(tabClients[w].getNomClient().equalsIgnoreCase(temp)){
-				verif=true;
-			}
-		}
-		
-		return verif;
-	}
-	
-	private boolean verifierPlats(String temp){
-		boolean verif=false;
-		for (int w=0; w<tabPlats.length&&!verif; ++w){
-			if(tabPlats[w].getNom().equalsIgnoreCase(temp)){
-				verif=true;
-			}
-		}
-		
-		return verif;
-	}
 	
 	private double calculTPS(double total){
 		return total*TPS;
