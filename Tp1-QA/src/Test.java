@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class Test {
 
@@ -18,7 +20,12 @@ public class Test {
 		Facture test = new Facture("Essai.txt");
 		
 		test.lireFacture();
-		test.affichage();
+		try {
+			test.affichage();
+		} catch ( IOException e ) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		}
 

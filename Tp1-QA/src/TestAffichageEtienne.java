@@ -7,7 +7,7 @@ public class TestAffichageEtienne {
 	@Test
 	public void testTVQ() {
 		double resultat = Facture.calculTVQ( 100 );
-		assertEquals(110, resultat, 2);
+		assertEquals(110, resultat,2);
 	}
 	
 	@Test
