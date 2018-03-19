@@ -1,9 +1,13 @@
 Luc Roy
 Creation du fichier Facture
-Ajouts des rrreurs dans l'affichage
+Ajouts des errreurs dans l'affichage
 
 
 Étienne Vaillancourt
 Affichage de la facture à l'écran
 Gestion des factures a 0$
 Rajout des taxes dans le calcul
+
+Gestions des bugs: platform 16Bugs
+Compagnie: TpQA
+Projet: Tp3QA
