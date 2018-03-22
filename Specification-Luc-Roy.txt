@@ -1,0 +1,19 @@
+Creation du fichier facture
+
+Création d'un Objet fichier avec le nom date-Heure (ex. 010218-081122 pour 1 février 2018 a 8h11 et 22 sec.)
+
+Création d'un nouvelle variable String (enregistrement) dans la methode affichage (classe Facture) initialiser a 
+"Bienvenue chez Barette! Factures:"
+
+Appelle d'une methode enregistrer avec la variable enregistrement et le fichier comme attribut
+
+
+Toujours dans la méthode Affichage, rajout des informations afficher dans la variable enregistrement et on apelle la methode enregistrement.
+
+
+
+Methode enregistrer(String enregistrement, File fichier)
+
+La méthode enregistrer enregistre dans le fichier la nouvelle ligne du String
+
+
