@@ -1,9 +1,9 @@
 
 public class Vérifications {
 	
-	public static boolean verifierPlatsExistant(Plat tabPlats[],String temp){
+	public boolean verifierPlatsExistant(Plat tabPlats[],String temp, int compteur){
 		boolean verif=false;
-		for (int w=0; w<tabPlats.length; ++w){
+		for (int w=0; w<compteur; ++w){
 			if(tabPlats[w].getNom().equalsIgnoreCase(temp)){
 				verif=true;
 				break;
@@ -12,9 +12,9 @@ public class Vérifications {
 		return verif;
 }
 	
-	public static boolean verifierClientExistant(Clients tabClients[], String temp){
+	public boolean verifierClientExistant(Clients tabClients[], String temp, int compteur){
 		boolean verif=false;
-		for (int w=0; w<tabClients.length; ++w){
+		for (int w=0; w<compteur; ++w){
 			if(tabClients[w].getNomClient().equalsIgnoreCase(temp)){
 				verif=true;
 				break;
@@ -24,7 +24,7 @@ public class Vérifications {
 		return verif;
 	}
 	
-	public static boolean verifierQuantite(String temp){
+	public boolean verifierQuantite(String temp){
 		
 		boolean valide = false;
 		
@@ -41,7 +41,7 @@ public class Vérifications {
 		return valide;
 	}
 	
-	public static boolean verifierPrix(String temp){
+	public boolean verifierPrix(String temp){
 		
 		boolean valide = false;
 		
@@ -58,7 +58,7 @@ public class Vérifications {
 		return valide;
 	}
 	
-	public static boolean verifierPlat(String temp){
+	public boolean verifierPlat(String temp){
 		
 		char[] tab = temp.toCharArray();
 		boolean valide = false;
@@ -77,7 +77,7 @@ public class Vérifications {
 		return valide;
 	}
 	
-	public static boolean verifierClient(String temp){
+	public boolean verifierClient(String temp){
 		
 		boolean valide = false;
 		char[] tab = temp.toCharArray();

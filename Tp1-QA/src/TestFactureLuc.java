@@ -6,39 +6,45 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-/*public class TestFactureLuc {
+public class TestFactureLuc {
 
-	Facture temp;
-	
-	@Before
-	public void avantTest(){
 
-		Facture temp = new Facture("Essai.txt");		
-		temp.lireFacture();
-		temp.affichage();
-	}
+	Vérifications verif = new Vérifications();
+
 	@Test
-	public void testVerifierClientVrai() {
-		boolean test = temp.verifierClient("Steeve");
+	public void testVerifierQuantiteFaux() {
+		boolean test = verif.verifierQuantite("a");
+		Assert.assertFalse(test);
+	}
+	
+	@Test
+	public void testVerifierQuantiteVrai() {
+		boolean test = verif.verifierQuantite("1");
 		Assert.assertTrue(test);
 	}
 	
 	@Test
-	public void testVerifierClientFaux() {
-		boolean test = temp.verifierClient("Lynda");
+	public void testVerifierPrixVrai() {
+		boolean test = verif.verifierPrix("1");
+		Assert.assertTrue(test);
+	}
+	
+	@Test
+	public void testVerifierPrixFaux() {
+		boolean test = verif.verifierPrix("a");
 		Assert.assertFalse(test);
 	}
 	
 	@Test
 	public void testVerifierPlatsVrai() {
-		boolean test = temp.verifierPlats("Poutine");
+		boolean test = verif.verifierPlat("Hamburger");
 		Assert.assertTrue(test);
 	}
 	
 	@Test
-	public void testVerifierPlattsFaux() {
-		boolean test = temp.verifierPlats("Hamburger");
+	public void testVerifierPlatsFaux() {
+		boolean test = verif.verifierPlat("Hamburger1");
 		Assert.assertFalse(test);
 	}
 
-}*/
+}
