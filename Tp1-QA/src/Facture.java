@@ -18,23 +18,22 @@ public class Facture {
 	private Plat[] tabPlats;
 	private Commandes[] tabCommandes;
 
-	private int j=0;
-	private int k=0;
-	private int l=0;
-	private static  final double TPS = 0.05;
+	private int j = 0;
+	private int k = 0;
+	private int l = 0;
+	private static final double TPS = 0.05;
 	private static final double TVQ = 0.1;
-	public int compteurC=0;
-	public int compteurP=0;
-	public int compteurCommandes=0;
+	public int compteurC = 0;
+	public int compteurP = 0;
+	public int compteurCommandes = 0;
 	private Clients clientTemp;
 	private String[] textePlat;
 	private String[] texteCommandes;
 	private DecimalFormat df = new DecimalFormat( "#0.00" );
 	private String erreur = "";
 	private Vérifications verif = new Vérifications();
-	
-	public Facture(String nomFichier){
 
+	public Facture( String nomFichier ) {
 
 		try {
 			texte = lectureFichier( nomFichier );
@@ -71,61 +70,67 @@ public class Facture {
 
 	public void lireFacture() {
 		int i = 0;
-		
+
 		if ( texte[i].equalsIgnoreCase( "Clients:" ) ) {
 			++i;
 
-		while(!texte[i].equalsIgnoreCase("Plats:")){
-			if(verif.verifierClient(texte[i])){
-				clientTemp =  new Clients(texte[i]);
-				tabClients[j++]= clientTemp;
-			}else{
-				erreur+="Le nom du client " + texte[i] + " n'est pas valide. \n";
-				--compteurC;
-				
-			}
-				++i;
-			}
-			++i;
+			while ( !texte[i].equalsIgnoreCase( "Plats:" ) ) {
+				if ( verif.verifierClient( texte[i] ) ) {
+					clientTemp = new Clients( texte[i] );
+					tabClients[j++] = clientTemp;
+				} else {
+					erreur += System.getProperty( "line.separator" ) + "Le nom du client " + texte[i]
+							+ " n'est pas valide.";
+					--compteurC;
 
-		while(!texte[i].equalsIgnoreCase("Commandes:")){
-				textePlat = texte[i].split("\\s+");
-				if(verif.verifierPlat(textePlat[0]) && verif.verifierPrix(textePlat[1])){
-				Plat platTemp = new Plat(textePlat[0],Double.parseDouble(textePlat[1]));
-				tabPlats[k++]= platTemp;
-				}else if(!verif.verifierPlat(textePlat[0])){
-				erreur+="Le nom du plat " + textePlat[0] + " n'est pas valide. \n";
-				--compteurP;
-				}else{
-				erreur+="Le prix du plat " + textePlat[1] + " n'est pas valide. \n";
-				--compteurP;
 				}
 				++i;
 			}
 			++i;
 
-		while(!texte[i].equalsIgnoreCase("Fin")){			
-			texteCommandes = texte[i].split("\\s+");
-			if(verif.verifierClient(texteCommandes[0])&&verif.verifierPlat(texteCommandes[1])&&verif.verifierQuantite(texteCommandes[2])){
-			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Double.parseDouble(texteCommandes[2]));
-			tabCommandes[l++]= commandesTemp;
-			}else if(!verif.verifierClient(texteCommandes[0])){
-			erreur+="Le nom du client " + texteCommandes[0] + " n'est pas valide. \n";
-			--compteurCommandes;
-			}else if(!verif.verifierPlat(texteCommandes[1])){
-			erreur+="Le nom du plat " + texteCommandes[1] + " n'est pas valide. \n";	
-			--compteurCommandes;
-			}else{
-			erreur+="La quantité " + texteCommandes[2] + " n'est pas valide. \n";	
-			--compteurCommandes;
+			while ( !texte[i].equalsIgnoreCase( "Commandes:" ) ) {
+				textePlat = texte[i].split( "\\s+" );
+				if ( verif.verifierPlat( textePlat[0] ) && verif.verifierPrix( textePlat[1] ) ) {
+					Plat platTemp = new Plat( textePlat[0], Double.parseDouble( textePlat[1] ) );
+					tabPlats[k++] = platTemp;
+				} else if ( !verif.verifierPlat( textePlat[0] ) ) {
+					erreur += System.getProperty( "line.separator" ) + "Le nom du plat " + textePlat[0]
+							+ " n'est pas valide.";
+					--compteurP;
+				} else {
+					erreur += System.getProperty( "line.separator" ) + "Le prix du plat " + textePlat[1]
+							+ " n'est pas valide.";
+					--compteurP;
+				}
+				++i;
 			}
 			++i;
-		}
+
+			while ( !texte[i].equalsIgnoreCase( "Fin" ) ) {
+				texteCommandes = texte[i].split( "\\s+" );
+				if ( verif.verifierClient( texteCommandes[0] ) && verif.verifierPlat( texteCommandes[1] )
+						&& verif.verifierQuantite( texteCommandes[2] ) ) {
+					Commandes commandesTemp = new Commandes( texteCommandes[0], texteCommandes[1],
+							Double.parseDouble( texteCommandes[2] ) );
+					tabCommandes[l++] = commandesTemp;
+				} else if ( !verif.verifierClient( texteCommandes[0] ) ) {
+					erreur += System.getProperty( "line.separator" ) + "Le nom du client " + texteCommandes[0]
+							+ " n'est pas valide.";
+					--compteurCommandes;
+				} else if ( !verif.verifierPlat( texteCommandes[1] ) ) {
+					erreur += System.getProperty( "line.separator" ) + "Le nom du plat " + texteCommandes[1]
+							+ " n'est pas valide.";
+					--compteurCommandes;
+				} else {
+					erreur += System.getProperty( "line.separator" ) + "La quantité " + texteCommandes[2]
+							+ " n'est pas valide.";
+					--compteurCommandes;
+				}
+				++i;
+			}
 		}
 
-		}
-
-	
+	}
 
 	public void affichage() throws IOException {
 
@@ -145,17 +150,16 @@ public class Facture {
 			String temp = tabCommandes[i].getNomClient();
 			String temp2 = tabCommandes[i].getNomRepas();
 
-			
-			if(!verif.verifierClientExistant(tabClients, temp, compteurC)){
-				//System.out.println("Le fichier ne respecte pas le format demandé!");
-				enregistrement += "\nLa commande contient un client non existant.";
+			if ( !verif.verifierClientExistant( tabClients, temp, compteurC ) ) {
+				enregistrement += System.getProperty( "line.separator" )
+						+ "La commande contient un client non existant.";
 			}
-			if(!verif.verifierPlatsExistant(tabPlats, temp2, compteurP)){
-				//System.out.println("Le fichier ne respecte pas le format demandé!");
-				enregistrement += "\nLa commande contient un plat non existant.";
+			if ( !verif.verifierPlatsExistant( tabPlats, temp2, compteurP ) ) {
+				enregistrement += System.getProperty( "line.separator" )
+						+ "La commande contient un plat non existant.";
 			}
 		}
-		System.out.println(erreur);
+		System.out.println( erreur );
 		for ( int i = 0; i < compteurC; i++ ) {
 
 			String tempClient = tabClients[i].getNomClient();
@@ -172,9 +176,7 @@ public class Facture {
 
 					for ( int x = 0; x < compteurP; x++ ) {
 						if ( tabPlats[x].getNom().equalsIgnoreCase( nomRepas ) ) {
-							//System.out.println(nomRepas);
 							prix = tabPlats[x].getPrix();
-							//System.out.println("Prix: " + prix);
 							total += qte * prix;
 
 						}
@@ -186,7 +188,7 @@ public class Facture {
 
 			if ( total > 0 ) {
 				total += calculTPS( total ) + calculTVQ( total );
-				enregistrement += erreur + "\n" + tempClient + " " + df.format( total ) + "$"
+				enregistrement += erreur + System.getProperty( "line.separator" ) + tempClient + " " + df.format( total ) + "$"
 						+ System.getProperty( "line.separator" );
 				enregistrer( enregistrement, fichier );
 				System.out.println( tempClient + " " + df.format( total ) + "$" );
@@ -214,13 +216,10 @@ public class Facture {
 		return lines.toArray( new String[lines.size()] );
 	}
 
-	
-	
-	private double calculTPS(double total){
-		return total*TPS;
-		
-	}
+	private double calculTPS( double total ) {
+		return total * TPS;
 
+	}
 
 	public static double calculTVQ( double total ) {
 		return total * TVQ;
