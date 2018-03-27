@@ -1,0 +1,12 @@
+Bienvenue chez Barette!
+Factures:
+
+
+Le nom du client ou le numéro de table Roger 112 n'est pas valide.
+Céline
+
+Numéro de table 1: 23,86$
+
+Steeve
+
+Numéro de table 2: 18,11$
