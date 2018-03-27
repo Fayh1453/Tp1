@@ -95,19 +95,23 @@ public class Vérifications {
 		return valide;
 	}
 	
-	public boolean verifierTable(String temp){
+	public boolean verifierTable(String temp , int max){
 		
 		boolean valide = false;
+		int valeur=0;
 		
 		try {
 			
-			Integer.parseInt( temp );
-			valide = true;
+			valeur=Integer.parseInt( temp );
+			if(valeur>0&&valeur<=max){
+				valide=true;
+			}
 		
 		} catch (Exception e) {
 			
 			valide = false;
 		}
+		
 		
 		return valide;
 	}
