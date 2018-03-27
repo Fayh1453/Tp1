@@ -94,4 +94,21 @@ public class Vérifications {
 		
 		return valide;
 	}
+	
+	public boolean verifierTable(String temp){
+		
+		boolean valide = false;
+		
+		try {
+			
+			Integer.parseInt( temp );
+			valide = true;
+		
+		} catch (Exception e) {
+			
+			valide = false;
+		}
+		
+		return valide;
+	}
 }
