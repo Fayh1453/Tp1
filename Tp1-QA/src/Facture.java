@@ -75,6 +75,7 @@ public class Facture {
 		if (texte[i].equalsIgnoreCase("Clients:")) {
 			++i;
 
+
 			while (!texte[i].equalsIgnoreCase("Plats:")) {
 				texteClient = texte[i].split("\\s+");
 				if (verif.verifierClient(texteClient[0])
@@ -179,15 +180,16 @@ public class Facture {
 						+ "La commande contient un plat non existant.";
 			}
 		}
+
 		System.out.println(erreur);
 
 		for (int i = 0; i < compteurC; i++) {
-
 			String tempClient = tabClients[i].getNomClient();
 			int tempTable = tabClients[i].getNumTable();
 
 			for (int y = 0; y < compteurCommandes; y++) {
 				qte = 0;
+				
 				if (tabCommandes[y].getNomClient().equalsIgnoreCase(tempClient)) {
 
 					qte = tabCommandes[y].getQuantité();
@@ -218,28 +220,32 @@ public class Facture {
 
 		}
 
-		for (int i = 0; i < prixTable.length; ++i) {
+
+		for ( int i = 0; i < prixTable.length; ++i ) {
 			compteurClientTable = 0;
-			if (prixTable[i] > 0 && prixTable[i] < 100) {
-				for (int j = 0; j < compteurC; ++j) {
-					if (tabClients[j].getNumTable() == i) {
-						System.out.println(tabClients[j].getNomClient());
+			if ( prixTable[i] > 0 && prixTable[i] < 100 ) {
+				for ( int j = 0; j < compteurC; ++j ) {
+					if ( tabClients[j].getNumTable() == i ) {
+						System.out.println( tabClients[j].getNomClient() );
+						enregistrement += erreur + System.getProperty( "line.separator" )
+								+ tabClients[j].getNomClient() + System.getProperty( "line.separator" );
+						enregistrer( enregistrement, fichier );
 						compteurClientTable++;
 					}
 				}
-				if (compteurClientTable >= 3) {
+				if ( compteurClientTable >= 3 ) {
 					prixTable[i] *= 1.15;
-					prixTable[i] += calculTPS(prixTable[i])
-							+ calculTVQ(prixTable[i]);
-					System.out.println("Numéro de table " + i + ": "
-							+ df.format(prixTable[i]) + "$");
+					prixTable[i] += calculTPS( prixTable[i] ) + calculTVQ( prixTable[i] );
+					System.out.println( "Numéro de table " + i + ": " + df.format( prixTable[i] ) + "$" );
 				} else {
-					prixTable[i] += calculTPS(prixTable[i])
-							+ calculTVQ(prixTable[i]);
-					System.out.println("Numéro de table " + i + ": "
-							+ df.format(prixTable[i]) + "$");
+					prixTable[i] += calculTPS( prixTable[i] ) + calculTVQ( prixTable[i] );
+					System.out.println( "Numéro de table " + i + ": " + df.format( prixTable[i] ) + "$" );
 				}
+				enregistrement += erreur + System.getProperty( "line.separator" ) + "Numéro de table " + i + ": "
+						+ df.format( prixTable[i] ) + "$" + System.getProperty( "line.separator" );
+				enregistrer( enregistrement, fichier );
 				System.out.println();
+
 			} else if (prixTable[i] > 100) {
 				for (int j = 0; j < compteurC; ++j) {
 					if (tabClients[j].getNumTable() == i) {
