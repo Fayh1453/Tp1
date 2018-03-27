@@ -35,7 +35,7 @@ public class Facture {
 	private String erreur = "";
 	private Vérifications verif = new Vérifications();
 	private double[] prixTable = new double[NOMBRE_TABLE];
-	private int compteurClientTable=0;
+	private int compteurClientTable = 0;
 
 	public Facture( String nomFichier ) {
 
@@ -77,8 +77,8 @@ public class Facture {
 
 			while ( !texte[i].equalsIgnoreCase( "Plats:" ) ) {
 				texteClient = texte[i].split( "\\s+" );
-				if ( verif.verifierClient( texteClient[0]) && verif.verifierTable(texteClient[1]) )  {
-					clientTemp = new Clients( texteClient[0], Integer.parseInt(texteClient[1]) );
+				if ( verif.verifierClient( texteClient[0] ) && verif.verifierTable( texteClient[1] ) ) {
+					clientTemp = new Clients( texteClient[0], Integer.parseInt( texteClient[1] ) );
 					tabClients[j++] = clientTemp;
 				} else {
 					erreur += System.getProperty( "line.separator" ) + "Le nom du client " + texte[i]
@@ -147,9 +147,9 @@ public class Facture {
 		enregistrer( enregistrement, fichier );
 
 		System.out.println( "Bienvenue chez Barette!\nFactures:" );
-		
-		for (int i =0; i<prixTable.length;++i){
-			prixTable[i]=0;
+
+		for ( int i = 0; i < prixTable.length; ++i ) {
+			prixTable[i] = 0;
 		}
 
 		for ( int i = 0; i < compteurCommandes; i++ ) {
@@ -166,16 +166,15 @@ public class Facture {
 			}
 		}
 		System.out.println( erreur );
-		
-		
+
 		for ( int i = 0; i < compteurC; i++ ) {
-			
+
 			String tempClient = tabClients[i].getNomClient();
 			int tempTable = tabClients[i].getNumTable();
 
 			for ( int y = 0; y < compteurCommandes; y++ ) {
 				qte = 0;
-				if ( tabCommandes[y].getNomClient().equalsIgnoreCase( tempClient )) {					
+				if ( tabCommandes[y].getNomClient().equalsIgnoreCase( tempClient ) ) {
 
 					qte = tabCommandes[y].getQuantité();
 
@@ -186,7 +185,7 @@ public class Facture {
 							total = 0.00;
 							prix = tabPlats[x].getPrix();
 							total += qte * prix;
-							prixTable[tempTable]+=total;
+							prixTable[tempTable] += total;
 
 						}
 
@@ -195,43 +194,50 @@ public class Facture {
 				}
 			}
 
-			/*if ( total > 0 ) {
-				enregistrement += erreur + System.getProperty( "line.separator" ) + tempClient + " " + df.format( total ) + "$"
-						+ System.getProperty( "line.separator" );
-				enregistrer( enregistrement, fichier );
-				System.out.println( tempClient + " " + df.format( total ) + "$" );
-			}*/
+			/*
+			 * if ( total > 0 ) { enregistrement += erreur + System.getProperty(
+			 * "line.separator" ) + tempClient + " " + df.format( total ) + "$"
+			 * + System.getProperty( "line.separator" ); enregistrer(
+			 * enregistrement, fichier ); System.out.println( tempClient + " " +
+			 * df.format( total ) + "$" ); }
+			 */
 
 		}
-		
-		for(int i =0 ; i<prixTable.length;++i){
-			compteurClientTable=0;
-			if(prixTable[i]>0 && prixTable[i]<100){
-				for(int j=0; j<compteurC;++j){
-					if(tabClients[j].getNumTable()==i){
-						System.out.println(tabClients[j].getNomClient());
+
+		for ( int i = 0; i < prixTable.length; ++i ) {
+			compteurClientTable = 0;
+			if ( prixTable[i] > 0 && prixTable[i] < 100 ) {
+				for ( int j = 0; j < compteurC; ++j ) {
+					if ( tabClients[j].getNumTable() == i ) {
+						System.out.println( tabClients[j].getNomClient() );
+						enregistrement += erreur + System.getProperty( "line.separator" )
+								+ tabClients[j].getNomClient() + System.getProperty( "line.separator" );
+						enregistrer( enregistrement, fichier );
 						compteurClientTable++;
 					}
 				}
-				if(compteurClientTable>=3){
-					prixTable[i]*=1.15;
-					prixTable[i]+=calculTPS(prixTable[i]) + calculTVQ(prixTable[i]);
-					System.out.println("Numéro de table " + i + ": " + df.format(prixTable[i]) + "$");	
-				}else{
-				prixTable[i]+=calculTPS(prixTable[i]) + calculTVQ(prixTable[i]);
-				System.out.println("Numéro de table " + i + ": " + df.format(prixTable[i]) + "$");					
+				if ( compteurClientTable >= 3 ) {
+					prixTable[i] *= 1.15;
+					prixTable[i] += calculTPS( prixTable[i] ) + calculTVQ( prixTable[i] );
+					System.out.println( "Numéro de table " + i + ": " + df.format( prixTable[i] ) + "$" );
+				} else {
+					prixTable[i] += calculTPS( prixTable[i] ) + calculTVQ( prixTable[i] );
+					System.out.println( "Numéro de table " + i + ": " + df.format( prixTable[i] ) + "$" );
 				}
+				enregistrement += erreur + System.getProperty( "line.separator" ) + "Numéro de table " + i + ": "
+						+ df.format( prixTable[i] ) + "$" + System.getProperty( "line.separator" );
+				enregistrer( enregistrement, fichier );
 				System.out.println();
-			 }else if(prixTable[i]>100){
-					for(int j=0; j<compteurC;++j){
-						if(tabClients[j].getNumTable()==i){
-							System.out.println(tabClients[j].getNomClient());
-						}
-						
+			} else if ( prixTable[i] > 100 ) {
+				for ( int j = 0; j < compteurC; ++j ) {
+					if ( tabClients[j].getNumTable() == i ) {
+						System.out.println( tabClients[j].getNomClient() );
 					}
-				prixTable[i]*=1.15;
-				prixTable[i]+=calculTPS(prixTable[i]) + calculTVQ(prixTable[i]);				
-				System.out.println("Numéro de table " + i + ": " + df.format(prixTable[i]) + "$");
+
+				}
+				prixTable[i] *= 1.15;
+				prixTable[i] += calculTPS( prixTable[i] ) + calculTVQ( prixTable[i] );
+				System.out.println( "Numéro de table " + i + ": " + df.format( prixTable[i] ) + "$" );
 
 			}
 		}
