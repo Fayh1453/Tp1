@@ -284,7 +284,7 @@ public class Facture {
 		return lines.toArray(new String[lines.size()]);
 	}
 
-	private double calculTPS(double total) {
+	static double calculTPS(double total) {
 		return total * TPS;
 
 	}
