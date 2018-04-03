@@ -230,6 +230,7 @@ public class Facture {
 						enregistrement += erreur + System.getProperty( "line.separator" )
 								+ tabClients[j].getNomClient() + System.getProperty( "line.separator" );
 						enregistrer( enregistrement, fichier );
+						erreur="";
 						compteurClientTable++;
 					}
 				}
@@ -244,6 +245,7 @@ public class Facture {
 				enregistrement += erreur + System.getProperty( "line.separator" ) + "Numéro de table " + i + ": "
 						+ df.format( prixTable[i] ) + "$" + System.getProperty( "line.separator" );
 				enregistrer( enregistrement, fichier );
+				erreur="";
 				System.out.println();
 
 			} else if (prixTable[i] > 100) {
